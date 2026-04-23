@@ -2,7 +2,7 @@ import java.util.*;
 
 public class UseCase12 {
 
-    // Goods Bogie class
+    // Goods Bogie model
     static class GoodsBogie {
         String type;
         String cargo;
@@ -11,20 +11,15 @@ public class UseCase12 {
             this.type = type;
             this.cargo = cargo;
         }
-
-        @Override
-        public String toString() {
-            return type + " -> " + cargo;
-        }
     }
 
     public static void main(String[] args) {
 
-        System.out.println("=========================================");
-        System.out.println("UC12 - Safety Compliance Check for Goods Bogies");
-        System.out.println("=========================================\n");
+        System.out.println("========================================");
+        System.out.println(" UC12 - Safety Compliance Check for Goods Bogies ");
+        System.out.println("========================================\n");
 
-        // Create list
+        // Create goods bogie list
         List<GoodsBogie> goodsBogies = new ArrayList<>();
 
         goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
@@ -32,15 +27,17 @@ public class UseCase12 {
         goodsBogies.add(new GoodsBogie("Box", "Grain"));
         goodsBogies.add(new GoodsBogie("Cylindrical", "Coal")); // ❌ invalid
 
-        // Display
+        // Display bogies
         System.out.println("Goods Bogies in Train:");
-        goodsBogies.forEach(System.out::println);
+        for (GoodsBogie g : goodsBogies) {
+            System.out.println(g.type + " -> " + g.cargo);
+        }
 
-        // 🔥 SAFETY RULE USING allMatch()
+        // Safety rule using allMatch()
         boolean isSafe = goodsBogies.stream()
-                .allMatch(b ->
-                        !b.type.equalsIgnoreCase("Cylindrical") ||
-                        b.cargo.equalsIgnoreCase("Petroleum")
+                .allMatch(g ->
+                        !g.type.equalsIgnoreCase("Cylindrical") ||
+                        g.cargo.equalsIgnoreCase("Petroleum")
                 );
 
         // Output
